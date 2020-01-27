@@ -141,7 +141,7 @@
         <!--Мои билеты-->
         <scene sceneID="SB9-GF-eL9">
             <objects>
-                <tableViewController id="LNe-h9-aXO" customClass="MyTicketsViewController" sceneMemberID="viewController">
+                <tableViewController id="LNe-h9-aXO" customClass="MyTicketsViewController" customModule="TicketApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="0gF-P3-c29">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -207,7 +207,6 @@
                             <outlet property="delegate" destination="LNe-h9-aXO" id="3dk-Y0-3cd"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="xHz-RH-Sp5"/>
                     <navigationItem key="navigationItem" title="Мои билеты" id="DV2-gj-ytq">
                         <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="VB9-aR-l4F">
                             <connections>

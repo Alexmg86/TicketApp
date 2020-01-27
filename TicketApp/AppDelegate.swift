@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        let version: UInt64 = 0
+        let version: UInt64 = 1
         var config = Realm.Configuration(
             schemaVersion: version,
             migrationBlock: { migration, oldSchemaVersion in
@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         )
-        config.deleteRealmIfMigrationNeeded = true
+        config.deleteRealmIfMigrationNeeded = false
         Realm.Configuration.defaultConfiguration = config
         return true
     }
