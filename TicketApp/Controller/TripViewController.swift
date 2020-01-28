@@ -9,20 +9,28 @@
 import UIKit
 import RealmSwift
 
-class TripViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TripViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var notificationLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var transportCollectionView: UICollectionView!
     
     var trips: Results<Trips>!
-    
-    let itemsArray = ["", "bus", "trollerbus", "tram", "train", "railway"]
+    var transports: Results<Transports>!
+    var selectedTransport: Int = 0
+    var selectedTicket: Int = 0
+    var selectedBalance: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.transportCollectionView.delegate = self
+        self.transportCollectionView.dataSource = self
         trips = realm.objects(Trips.self).sorted(byKeyPath: "date", ascending: false)
+        transports = realm.objects(Transports.self)
+        self.notificationLabel.isHidden = trips.isEmpty ? false : true
+        self.tableView.tableFooterView = UIView()
     }
 
     // MARK: - Table view data source
@@ -49,7 +57,7 @@ class TripViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.transportLabel?.text = tripById.transport_id?.name
         cell.priceLabel?.text = tripById.price > 0 ? String(tripById.price) + " ₽" : ""
         
-        cell.iconView.image = UIImage(named: itemsArray[tripById.transport_id!.id])
+        cell.iconView.image = UIImage(named: transports[tripById.transport_id!.id].iconName)
         
         return cell
     }
@@ -77,6 +85,35 @@ class TripViewController: UIViewController, UITableViewDelegate, UITableViewData
         StoragManager.addItem(objs: newTrip)
         tableView.reloadData()
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadMytickets"), object: nil)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return transports.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = transportCollectionView.dequeueReusableCell(withReuseIdentifier: "transportColCell", for: indexPath) as! TransportIconViewCell
+
+        cell.transportImage.image = UIImage(named: transports[indexPath.row].iconName)
+        cell.transportName.text = transports[indexPath.row].name
+        cell.contentView.layer.cornerRadius = 10
+        cell.contentView.clipsToBounds = true
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let cell = transportCollectionView.cellForItem(at: indexPath) as? TransportIconViewCell {
+            cell.contentView.backgroundColor = UIColor(red: 94/255, green: 186/255, blue: 125/255, alpha: 0.2)
+        }
+        if selectedTransport != indexPath.row + 1 {
+            selectedTransport = indexPath.row + 1
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if let cell = transportCollectionView.cellForItem(at: indexPath) as? TransportIconViewCell {
+            cell.contentView.backgroundColor = nil
+        }
     }
 
 }
