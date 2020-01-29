@@ -32,6 +32,8 @@
 		2D53B8C723DF84B9002FF637 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D53B8C623DF84B9002FF637 /* WelcomeViewController.swift */; };
 		2D53B8C923DF850D002FF637 /* StoragManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D53B8C823DF850D002FF637 /* StoragManager.swift */; };
 		2D94044A23E0184A0066C0C5 /* TransportIconViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D94044923E0184A0066C0C5 /* TransportIconViewCell.swift */; };
+		2D94044C23E193380066C0C5 /* BalancePayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D94044B23E193380066C0C5 /* BalancePayCell.swift */; };
+		2D94044E23E2054B0066C0C5 /* MyTicketPayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D94044D23E2054B0066C0C5 /* MyTicketPayCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +64,8 @@
 		2D53B8C623DF84B9002FF637 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		2D53B8C823DF850D002FF637 /* StoragManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoragManager.swift; sourceTree = "<group>"; };
 		2D94044923E0184A0066C0C5 /* TransportIconViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportIconViewCell.swift; sourceTree = "<group>"; };
+		2D94044B23E193380066C0C5 /* BalancePayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalancePayCell.swift; sourceTree = "<group>"; };
+		2D94044D23E2054B0066C0C5 /* MyTicketPayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketPayCell.swift; sourceTree = "<group>"; };
 		999CF002F3844339D7A45282 /* Pods_TicketApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TicketApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A855B255EBBA951CA4F74458 /* Pods-TicketApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TicketApp.release.xcconfig"; path = "Target Support Files/Pods-TicketApp/Pods-TicketApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -156,6 +160,8 @@
 				2D53B8BD23DF845D002FF637 /* CellTicketViewCell.swift */,
 				2D53B8BF23DF846B002FF637 /* CellMyTicketViewCell.swift */,
 				2D53B8C123DF8479002FF637 /* BalanceViewCell.swift */,
+				2D94044B23E193380066C0C5 /* BalancePayCell.swift */,
+				2D94044D23E2054B0066C0C5 /* MyTicketPayCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -295,6 +301,8 @@
 				2D53B8C723DF84B9002FF637 /* WelcomeViewController.swift in Sources */,
 				2D53B8AC23DF8398002FF637 /* TripViewController.swift in Sources */,
 				2D53B8C023DF846B002FF637 /* CellMyTicketViewCell.swift in Sources */,
+				2D94044E23E2054B0066C0C5 /* MyTicketPayCell.swift in Sources */,
+				2D94044C23E193380066C0C5 /* BalancePayCell.swift in Sources */,
 				2D53B8C223DF8479002FF637 /* BalanceViewCell.swift in Sources */,
 				2D53B8BE23DF845D002FF637 /* CellTicketViewCell.swift in Sources */,
 				2D53B88F23DF819B002FF637 /* AppDelegate.swift in Sources */,

@@ -35,11 +35,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jVg-SS-xZo">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jVg-SS-xZo">
                                 <rect key="frame" x="47" y="120" width="320" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="0.0" id="j70-Oj-WLt">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="bRK-bV-Qbf"/>
+                                    <constraint firstAttribute="width" constant="320" id="x7a-fp-4fK"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="5" minimumInteritemSpacing="5" id="j70-Oj-WLt">
                                     <size key="itemSize" width="60" height="60"/>
                                     <size key="estimatedItemSize" width="60" height="60"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -50,12 +53,12 @@
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="transportColCell" id="8a9-hl-BcY" customClass="TransportIconViewCell" customModule="TicketApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="wgF-mq-kQO">
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Nqf-Vh-ota">
                                             <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ks0-b0-QvH">
-                                                    <rect key="frame" x="0.0" y="42" width="60" height="10"/>
+                                                    <rect key="frame" x="19.5" y="42" width="21.5" height="10"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="8"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -71,9 +74,9 @@
                                             <constraints>
                                                 <constraint firstItem="Ks0-b0-QvH" firstAttribute="top" secondItem="SGx-O4-YXh" secondAttribute="bottom" constant="4" id="6ES-5U-soh"/>
                                                 <constraint firstAttribute="bottom" secondItem="Ks0-b0-QvH" secondAttribute="bottom" constant="8" id="OPp-oa-4fT"/>
-                                                <constraint firstItem="SGx-O4-YXh" firstAttribute="centerX" secondItem="wgF-mq-kQO" secondAttribute="centerX" id="PDO-sD-fWU"/>
-                                                <constraint firstItem="SGx-O4-YXh" firstAttribute="top" secondItem="wgF-mq-kQO" secondAttribute="top" constant="8" id="b7h-va-Kde"/>
-                                                <constraint firstItem="Ks0-b0-QvH" firstAttribute="centerX" secondItem="wgF-mq-kQO" secondAttribute="centerX" id="vcO-FQ-G3U"/>
+                                                <constraint firstItem="SGx-O4-YXh" firstAttribute="centerX" secondItem="Nqf-Vh-ota" secondAttribute="centerX" id="PDO-sD-fWU"/>
+                                                <constraint firstItem="SGx-O4-YXh" firstAttribute="top" secondItem="Nqf-Vh-ota" secondAttribute="top" constant="8" id="b7h-va-Kde"/>
+                                                <constraint firstItem="Ks0-b0-QvH" firstAttribute="centerX" secondItem="Nqf-Vh-ota" secondAttribute="centerX" id="vcO-FQ-G3U"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="60" height="60"/>
@@ -84,16 +87,6 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Выберите вид транспорта и способ оплаты" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HxZ-07-Ldx">
-                                <rect key="frame" x="0.0" y="88" width="414" height="24"/>
-                                <color key="backgroundColor" red="0.51764705882352935" green="0.72941176470588232" blue="0.24705882352941178" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="JYo-TT-OFk"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ljq-7R-ofC">
                                 <rect key="frame" x="0.0" y="493" width="414" height="320"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -109,13 +102,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cji-dQ-kLr">
-                                                    <rect key="frame" x="77" y="11" width="260" height="15"/>
+                                                    <rect key="frame" x="77" y="11" width="260" height="14.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.60392156860000001" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h2K-vi-ljv">
-                                                    <rect key="frame" x="77" y="27" width="260" height="15"/>
+                                                    <rect key="frame" x="77" y="26.5" width="260" height="14.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.60392156860000001" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -169,23 +162,151 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Выберите вид транспорта и способ оплаты" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HxZ-07-Ldx">
+                                <rect key="frame" x="0.0" y="88" width="414" height="24"/>
+                                <color key="backgroundColor" red="0.51764705882352935" green="0.72941176470588232" blue="0.24705882352941178" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="JYo-TT-OFk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="SqB-Lx-MJt">
+                                <rect key="frame" x="47" y="190" width="320" height="184"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Оплатить с кошелька" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rf2-SQ-T0J">
+                                        <rect key="frame" x="88" y="0.0" width="144" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gjj-ey-PEt">
+                                        <rect key="frame" x="60" y="27" width="200" height="60"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="fS4-qK-A6W"/>
+                                            <constraint firstAttribute="width" constant="200" id="gTJ-qa-93C"/>
+                                        </constraints>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="10" id="ZsC-Zm-cDg">
+                                            <size key="itemSize" width="60" height="60"/>
+                                            <size key="estimatedItemSize" width="60" height="60"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="balancePayCell" id="8mR-7N-T5C" customClass="BalancePayCell" customModule="TicketApp" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="mlP-td-Rcn">
+                                                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="59 Р" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vf1-Vo-R0o">
+                                                            <rect key="frame" x="9.5" y="18" width="41" height="24"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                            <color key="textColor" red="0.85098039219999999" green="0.13725490200000001" blue="0.18039215689999999" alpha="0.84705882349999995" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="vf1-Vo-R0o" firstAttribute="centerX" secondItem="mlP-td-Rcn" secondAttribute="centerX" id="U5g-Ia-ilG"/>
+                                                        <constraint firstItem="vf1-Vo-R0o" firstAttribute="centerY" secondItem="mlP-td-Rcn" secondAttribute="centerY" id="xxd-0U-h7M"/>
+                                                    </constraints>
+                                                </collectionViewCellContentView>
+                                                <connections>
+                                                    <outlet property="valueLabel" destination="vf1-Vo-R0o" id="xa7-Ku-KM8"/>
+                                                </connections>
+                                            </collectionViewCell>
+                                        </cells>
+                                    </collectionView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Оплатить проездным" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eZT-9r-HuN">
+                                        <rect key="frame" x="87.5" y="97" width="145" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rQq-Z0-gpI">
+                                        <rect key="frame" x="0.0" y="124" width="320" height="60"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="320" id="xr1-Jh-JSI"/>
+                                        </constraints>
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="5" minimumInteritemSpacing="5" id="asu-9k-EAA">
+                                            <size key="itemSize" width="60" height="60"/>
+                                            <size key="estimatedItemSize" width="60" height="60"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="myTicketPayCell" id="rNG-a5-Ws5" customClass="MyTicketPayCell" customModule="TicketApp" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Qem-1m-Ruw">
+                                                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IcJ-rX-hg0">
+                                                            <rect key="frame" x="19.5" y="42" width="21.5" height="10"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KMy-yB-NjZ">
+                                                            <rect key="frame" x="25.5" y="8" width="9.5" height="24"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                            <color key="textColor" red="0.85098039219999999" green="0.13725490200000001" blue="0.18039215689999999" alpha="0.84705882349999995" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="KMy-yB-NjZ" firstAttribute="centerX" secondItem="Qem-1m-Ruw" secondAttribute="centerX" id="F9C-2T-5gR"/>
+                                                        <constraint firstItem="IcJ-rX-hg0" firstAttribute="centerX" secondItem="Qem-1m-Ruw" secondAttribute="centerX" id="Jxv-5R-y7a"/>
+                                                        <constraint firstItem="KMy-yB-NjZ" firstAttribute="top" secondItem="Qem-1m-Ruw" secondAttribute="top" constant="8" id="o4u-Bf-esZ"/>
+                                                        <constraint firstAttribute="bottom" secondItem="IcJ-rX-hg0" secondAttribute="bottom" constant="8" id="rC1-6g-8d8"/>
+                                                    </constraints>
+                                                </collectionViewCellContentView>
+                                                <size key="customSize" width="60" height="60"/>
+                                                <connections>
+                                                    <outlet property="nameLabel" destination="IcJ-rX-hg0" id="7zX-oD-yJi"/>
+                                                    <outlet property="valueLabel" destination="KMy-yB-NjZ" id="91m-vr-VHE"/>
+                                                </connections>
+                                            </collectionViewCell>
+                                        </cells>
+                                    </collectionView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="184" id="gKY-oq-ica"/>
+                                    <constraint firstAttribute="width" constant="320" id="xaW-kp-5y5"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="ljq-7R-ofC" firstAttribute="bottom" secondItem="t4Y-Mc-cvL" secondAttribute="bottom" id="9QB-Xo-tIc"/>
+                            <constraint firstItem="jVg-SS-xZo" firstAttribute="top" secondItem="t4Y-Mc-cvL" secondAttribute="top" constant="32" id="Gw1-jQ-avA"/>
                             <constraint firstItem="ljq-7R-ofC" firstAttribute="centerX" secondItem="PEl-8g-4ZY" secondAttribute="centerX" id="PKu-bK-9PP"/>
+                            <constraint firstItem="jVg-SS-xZo" firstAttribute="centerX" secondItem="PEl-8g-4ZY" secondAttribute="centerX" id="TVR-MV-zwa"/>
                             <constraint firstItem="HxZ-07-Ldx" firstAttribute="top" secondItem="t4Y-Mc-cvL" secondAttribute="top" id="UQ6-zG-OAL"/>
                             <constraint firstItem="HxZ-07-Ldx" firstAttribute="leading" secondItem="t4Y-Mc-cvL" secondAttribute="leading" id="dvm-XO-6Mh"/>
+                            <constraint firstItem="SqB-Lx-MJt" firstAttribute="centerX" secondItem="PEl-8g-4ZY" secondAttribute="centerX" id="nvM-IT-ahu"/>
                             <constraint firstItem="HxZ-07-Ldx" firstAttribute="trailing" secondItem="t4Y-Mc-cvL" secondAttribute="trailing" id="oYg-gI-vxt"/>
                             <constraint firstItem="ljq-7R-ofC" firstAttribute="trailing" secondItem="t4Y-Mc-cvL" secondAttribute="trailing" id="pSe-9u-9Fd"/>
                             <constraint firstItem="ljq-7R-ofC" firstAttribute="leading" secondItem="t4Y-Mc-cvL" secondAttribute="leading" id="seO-vB-fXo"/>
+                            <constraint firstItem="SqB-Lx-MJt" firstAttribute="top" secondItem="jVg-SS-xZo" secondAttribute="bottom" constant="10" id="zEf-PI-Dv8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="t4Y-Mc-cvL"/>
                     </view>
                     <navigationItem key="navigationItem" title="Добавить поездку" id="3dt-ml-hZX"/>
                     <connections>
+                        <outlet property="balanceCollectionView" destination="gjj-ey-PEt" id="bdU-0P-eWp"/>
+                        <outlet property="balanceLabel" destination="rf2-SQ-T0J" id="kK7-wu-HeK"/>
+                        <outlet property="myTicketCollectionView" destination="rQq-Z0-gpI" id="BUh-3J-zUZ"/>
                         <outlet property="notificationLabel" destination="HxZ-07-Ldx" id="B95-bU-RxJ"/>
                         <outlet property="tableView" destination="ljq-7R-ofC" id="R50-GC-iwe"/>
+                        <outlet property="ticketsLabel" destination="eZT-9r-HuN" id="ONL-j3-w5w"/>
                         <outlet property="transportCollectionView" destination="jVg-SS-xZo" id="Ycc-Tr-kqo"/>
                     </connections>
                 </viewController>

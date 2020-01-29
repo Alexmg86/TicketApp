@@ -14,12 +14,20 @@ class TripViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var notificationLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var transportCollectionView: UICollectionView!
+    @IBOutlet weak var balanceLabel: UILabel!
+    @IBOutlet weak var balanceCollectionView: UICollectionView!
+    @IBOutlet weak var ticketsLabel: UILabel!
+    @IBOutlet weak var myTicketCollectionView: UICollectionView!
     
     var trips: Results<Trips>!
     var transports: Results<Transports>!
+    var payments: Results<Payments>!
+    var myTickets: Results<MyTickets>!
     var selectedTransport: Int = 0
-    var selectedTicket: Int = 0
+    var selectedMyTicket: Int = 0
     var selectedBalance: Int = 0
+    
+    let balanceArray = [38, 45, 59]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,8 +35,16 @@ class TripViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView.dataSource = self
         self.transportCollectionView.delegate = self
         self.transportCollectionView.dataSource = self
+        self.balanceCollectionView.delegate = self
+        self.balanceCollectionView.dataSource = self
+        self.myTicketCollectionView.delegate = self
+        self.myTicketCollectionView.dataSource = self
+
         trips = realm.objects(Trips.self).sorted(byKeyPath: "date", ascending: false)
         transports = realm.objects(Transports.self)
+        payments = realm.objects(Payments.self)
+        myTickets = realm.objects(MyTickets.self)
+        
         self.notificationLabel.isHidden = trips.isEmpty ? false : true
         self.tableView.tableFooterView = UIView()
     }
@@ -47,7 +63,7 @@ class TripViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell = tableView.dequeueReusableCell(withIdentifier: "tripCell", for: indexPath) as! TripViewCell
         let tripById = trips[indexPath.row]
         
-        let ticketName = ((tripById.ticket_id) != nil) ? (tripById.ticket_id?.ticket_id?.group_id?.name)! + " на " + (tripById.ticket_id?.ticket_id?.name)! : ""
+        let ticketName = ((tripById.ticket_id) != nil) ? (tripById.ticket_id?.ticket_id?.group_id?.name)! + " на " + (tripById.ticket_id?.ticket_id?.name)! : "Кошелёк"
         cell.nameLabel?.text = ticketName
         
         let dateFormatter = DateFormatter()
@@ -55,10 +71,9 @@ class TripViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.dateLabel?.text = dateFormatter.string(from: tripById.date)
         
         cell.transportLabel?.text = tripById.transport_id?.name
-        cell.priceLabel?.text = tripById.price > 0 ? String(tripById.price) + " ₽" : ""
+        cell.priceLabel?.text = tripById.price > 0 ? "-" + String(tripById.price) + "₽" : ""
         
-        cell.iconView.image = UIImage(named: transports[tripById.transport_id!.id].iconName)
-        
+        cell.iconView.image = UIImage(named: transports[tripById.transport_id!.id-1].iconName)
         return cell
     }
     
@@ -75,45 +90,148 @@ class TripViewController: UIViewController, UITableViewDelegate, UITableViewData
         return swipeAction
     }
     
-    @IBAction func addTrip(_ sender: UIButton) {
-        let number = Int.random(in: 1 ..< 6)
-        
-        let nextId = StoragManager.incrementID(model: Trips.self)
-        let ticket_id = StoragManager.findById(id: 1, model: MyTickets.self) as? MyTickets
-        let transport_id = StoragManager.findById(id: number, model: Transports.self) as? Transports
-        let newTrip = Trips(id: nextId, type: 1, date: Date(), ticket_id: ticket_id!, transport_id: transport_id!, price: 0)
-        StoragManager.addItem(objs: newTrip)
-        tableView.reloadData()
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadMytickets"), object: nil)
-    }
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return transports.count
+        if collectionView == self.transportCollectionView {
+            return transports.count
+        } else if collectionView == self.balanceCollectionView {
+            return 3
+        } else {
+            return myTickets.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = transportCollectionView.dequeueReusableCell(withReuseIdentifier: "transportColCell", for: indexPath) as! TransportIconViewCell
-
-        cell.transportImage.image = UIImage(named: transports[indexPath.row].iconName)
-        cell.transportName.text = transports[indexPath.row].name
-        cell.contentView.layer.cornerRadius = 10
-        cell.contentView.clipsToBounds = true
-        return cell
+        if collectionView == self.transportCollectionView {
+            let cell = transportCollectionView.dequeueReusableCell(withReuseIdentifier: "transportColCell", for: indexPath) as! TransportIconViewCell
+            cell.transportImage.image = UIImage(named: transports[indexPath.row].iconName)
+            cell.transportName.text = transports[indexPath.row].name
+            cell.contentView.layer.cornerRadius = 10
+            cell.contentView.clipsToBounds = true
+            return cell
+        } else if collectionView == self.balanceCollectionView {
+            let cell = balanceCollectionView.dequeueReusableCell(withReuseIdentifier: "balancePayCell", for: indexPath) as! BalancePayCell
+            cell.valueLabel.text = String(balanceArray[indexPath.row]) + " ₽"
+            cell.contentView.layer.cornerRadius = 10
+            cell.contentView.clipsToBounds = true
+            return cell
+        } else {
+            let cell = myTicketCollectionView.dequeueReusableCell(withReuseIdentifier: "myTicketPayCell", for: indexPath) as! MyTicketPayCell
+            cell.valueLabel.text = String(myTickets[indexPath.row].ticket_id!.value)
+            cell.nameLabel.text = myTickets[indexPath.row].ticket_id!.name
+            cell.contentView.layer.cornerRadius = 10
+            cell.contentView.clipsToBounds = true
+            return cell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let cell = transportCollectionView.cellForItem(at: indexPath) as? TransportIconViewCell {
-            cell.contentView.backgroundColor = UIColor(red: 94/255, green: 186/255, blue: 125/255, alpha: 0.2)
+        if collectionView == self.transportCollectionView {
+            if let cell = transportCollectionView.cellForItem(at: indexPath) as? TransportIconViewCell {
+                cell.contentView.backgroundColor = UIColor(red: 94/255, green: 186/255, blue: 125/255, alpha: 0.2)
+            }
+            if selectedTransport != indexPath.row + 1 {
+                selectedTransport = indexPath.row + 1
+            }
+        } else if collectionView == self.balanceCollectionView {
+            if let cell = balanceCollectionView.cellForItem(at: indexPath) as? BalancePayCell {
+                cell.contentView.backgroundColor = UIColor(red: 94/255, green: 186/255, blue: 125/255, alpha: 0.2)
+            }
+            if selectedBalance != indexPath.row + 1 {
+                selectedBalance = indexPath.row + 1
+            }
+            self.resetMyTickets()
+        } else {
+            if let cell = myTicketCollectionView.cellForItem(at: indexPath) as? MyTicketPayCell {
+                cell.contentView.backgroundColor = UIColor(red: 94/255, green: 186/255, blue: 125/255, alpha: 0.2)
+            }
+            if selectedMyTicket != indexPath.row + 1 {
+                selectedMyTicket = indexPath.row + 1
+            }
+            self.resetBalance()
         }
-        if selectedTransport != indexPath.row + 1 {
-            selectedTransport = indexPath.row + 1
-        }
+        self.addTrip()
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        if let cell = transportCollectionView.cellForItem(at: indexPath) as? TransportIconViewCell {
-            cell.contentView.backgroundColor = nil
+        if collectionView == self.transportCollectionView {
+            if let cell = transportCollectionView.cellForItem(at: indexPath) as? TransportIconViewCell {
+                cell.contentView.backgroundColor = nil
+            }
+        } else if collectionView == self.balanceCollectionView {
+            if let cell = balanceCollectionView.cellForItem(at: indexPath) as? BalancePayCell {
+                cell.contentView.backgroundColor = nil
+            }
+        } else {
+            if let cell = myTicketCollectionView.cellForItem(at: indexPath) as? MyTicketPayCell {
+                cell.contentView.backgroundColor = nil
+            }
+        }
+    }
+    
+    func reset() {
+        self.resetTransport()
+        self.resetBalance()
+        self.resetMyTickets()
+    }
+    
+    func resetTransport() {
+        let selectedTransport = transportCollectionView.indexPathsForSelectedItems
+        for indexPath in selectedTransport! {
+            transportCollectionView.deselectItem(at: indexPath, animated: true)
+            if let cell = transportCollectionView.cellForItem(at: indexPath) as? TransportIconViewCell {
+                cell.contentView.backgroundColor = nil
+            }
+        }
+        self.selectedTransport = 0
+    }
+    
+    func resetBalance() {
+        let selectedBalance = balanceCollectionView.indexPathsForSelectedItems
+        for indexPath in selectedBalance! {
+            balanceCollectionView.deselectItem(at: indexPath, animated: true)
+            if let cell = balanceCollectionView.cellForItem(at: indexPath) as? BalancePayCell {
+                cell.contentView.backgroundColor = nil
+            }
+        }
+        self.selectedBalance = 0
+    }
+    
+    func resetMyTickets() {
+        let selectedMyTickets = myTicketCollectionView.indexPathsForSelectedItems
+        for indexPath in selectedMyTickets! {
+            myTicketCollectionView.deselectItem(at: indexPath, animated: true)
+            if let cell = myTicketCollectionView.cellForItem(at: indexPath) as? MyTicketPayCell {
+                cell.contentView.backgroundColor = nil
+            }
+        }
+        self.selectedMyTicket = 0
+    }
+    
+    func addTrip() {
+        if selectedTransport != 0 && (selectedMyTicket != 0 || selectedBalance != 0) {
+            let nextId = StoragManager.incrementID(model: Trips.self)
+            var price = 0
+            var type = 0
+            var ticket: MyTickets? = nil
+            if selectedMyTicket != 0 {
+                type = 1
+                ticket = StoragManager.findById(id: myTickets[selectedMyTicket-1].id, model: MyTickets.self) as? MyTickets
+            } else {
+                price = balanceArray[selectedBalance-1]
+            }
+            let transport_id = StoragManager.findById(id: selectedTransport, model: Transports.self) as? Transports
+            let newTrip = Trips(id: nextId, type: type, date: Date(), ticket_id: ticket, transport_id: transport_id!, price: price)
+            StoragManager.addItem(objs: newTrip)
+            tableView.reloadData()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadMytickets"), object: nil)
+            self.reset()
         }
     }
 
 }
+
+//extension TripViewController: UICollectionViewDelegateFlowLayout {
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return CGSize(width: 60, height: 60)
+//    }
+//}

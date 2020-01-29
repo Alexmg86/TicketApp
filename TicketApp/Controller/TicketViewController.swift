@@ -37,8 +37,9 @@ class TicketViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ticketsCell", for: indexPath) as! CellTicketViewCell
-        cell.nameLabel.text = groups[indexPath.section].tickets[indexPath.row].name
-        cell.priceLabel.text = String(groups[indexPath.section].tickets[indexPath.row].price) + " ₽"
+        let ticket = groups[indexPath.section].tickets[indexPath.row]
+        cell.nameLabel.text = String(ticket.value) + " " + ticket.name
+        cell.priceLabel.text = String(ticket.price) + " ₽"
         return cell
     }
     
