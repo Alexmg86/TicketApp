@@ -46,7 +46,8 @@ class TripViewController: UIViewController, UITableViewDelegate, UITableViewData
         myTickets = realm.objects(MyTickets.self)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.tripReloadMytickets), name: NSNotification.Name(rawValue: "tripReloadMytickets"), object: nil)
-        
+        self.setMargins()
+        self.checkVisible()
         self.notificationLabel.isHidden = trips.isEmpty ? false : true
         self.tableView.tableFooterView = UIView()
     }
@@ -225,6 +226,7 @@ class TripViewController: UIViewController, UITableViewDelegate, UITableViewData
             let newTrip = Trips(id: nextId, type: type, date: Date(), ticket_id: ticket, transport_id: transport_id!, price: price)
             StoragManager.addItem(objs: newTrip)
             tableView.reloadData()
+            self.checkVisible()
             if selectedMyTicket != 0 {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadMytickets"), object: nil)
             } else {
@@ -234,14 +236,56 @@ class TripViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    func setMargins() {
+        var left = 0.0
+        switch myTickets.count {
+        case 1:
+            left = 130
+        case 2:
+            left = 98.5
+        case 3:
+            left = 65
+        case 4:
+            left = 32.5
+        default:
+            left = 0
+        }
+        self.myTicketCollectionView.contentInset = UIEdgeInsets(top: 0, left: CGFloat(left), bottom: 0, right: 0);
+    }
+    
+    func checkVisible() {
+        if myTickets.count == 0 {
+            self.myTicketCollectionView.isHidden = true
+            self.ticketsLabel.isHidden = true
+        } else {
+            self.myTicketCollectionView.isHidden = false
+            self.ticketsLabel.isHidden = false
+        }
+        if self.getBalance() < self.balanceArray[0] {
+            self.balanceCollectionView.isHidden = true
+            self.balanceLabel.isHidden = true
+        } else {
+            self.balanceCollectionView.isHidden = false
+            self.balanceLabel.isHidden = false
+        }
+        if trips.count == 0 {
+            self.notificationLabel.isHidden = false
+        } else {
+            self.notificationLabel.isHidden = true
+        }
+    }
+    
+    func getBalance() -> Int {
+        let spent: Int = realm.objects(Trips.self).sum(ofProperty: "price")
+        let payments: Int = realm.objects(Payments.self).sum(ofProperty: "value")
+        return Int(payments - spent)
+    }
+    
     @objc private func tripReloadMytickets() {
+        self.setMargins()
+        self.checkVisible()
+        self.transportCollectionView.reloadData()
         self.myTicketCollectionView.reloadData()
     }
 
 }
-
-//extension TripViewController: UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: 60, height: 60)
-//    }
-//}

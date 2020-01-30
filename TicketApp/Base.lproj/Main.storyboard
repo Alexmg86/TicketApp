@@ -182,13 +182,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gjj-ey-PEt">
-                                        <rect key="frame" x="60" y="27" width="200" height="60"/>
+                                        <rect key="frame" x="65" y="27" width="190" height="60"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="fS4-qK-A6W"/>
-                                            <constraint firstAttribute="width" constant="200" id="gTJ-qa-93C"/>
+                                            <constraint firstAttribute="width" constant="190" id="gTJ-qa-93C"/>
                                         </constraints>
-                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="10" id="ZsC-Zm-cDg">
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="ZsC-Zm-cDg">
                                             <size key="itemSize" width="60" height="60"/>
                                             <size key="estimatedItemSize" width="60" height="60"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -231,6 +231,7 @@
                                         <rect key="frame" x="0.0" y="124" width="320" height="60"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="lGQ-BN-4s3"/>
                                             <constraint firstAttribute="width" constant="320" id="xr1-Jh-JSI"/>
                                         </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="5" minimumInteritemSpacing="5" id="asu-9k-EAA">
@@ -278,7 +279,7 @@
                                     </collectionView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="184" id="gKY-oq-ica"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="184" id="gKY-oq-ica"/>
                                     <constraint firstAttribute="width" constant="320" id="xaW-kp-5y5"/>
                                 </constraints>
                             </stackView>

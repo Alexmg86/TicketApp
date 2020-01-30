@@ -59,6 +59,7 @@ class BalanceViewController: UIViewController, UITableViewDelegate, UITableViewD
                     StoragManager.addItem(objs: neyPayment)
                     self.tableView.reloadData()
                     self.getBalance()
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "tripReloadMytickets"), object: nil)
                 } else {
                     self.errorAlert()
                 }
@@ -75,6 +76,7 @@ class BalanceViewController: UIViewController, UITableViewDelegate, UITableViewD
             StoragManager.deleteItem(objs: paymentForDelete)
             tableView.reloadData()
             self.getBalance()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "tripReloadMytickets"), object: nil)
             completionHandler(false)
         }
         let swipeAction = UISwipeActionsConfiguration(actions: [delete])

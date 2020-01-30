@@ -38,6 +38,7 @@ class Transports: Object {
             let newItem = Transports(id: item["id"] as! Int, name: item["name"] as! String, iconName: item["iconName"] as! String)
             StoragManager.addItem(objs: newItem)
         }
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "tripReloadMytickets"), object: nil)
     }
     
 }
