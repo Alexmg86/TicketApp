@@ -37,7 +37,7 @@ class MyTicketsViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myTicketsCell", for: indexPath) as! CellMyTicketViewCell
         let myTicketById = myTickets[indexPath.row]
         cell.groupName?.text = myTicketById.ticket_id?.group_id?.name
-        cell.myTicketName?.text = myTicketById.ticket_id?.name
+        cell.myTicketName?.text = String(myTicketById.ticket_id!.value) + " " + myTicketById.ticket_id!.name
         cell.countTrips?.text = String(myTicketById.trips.count)
         
         let modifiedDate = Calendar.current.date(byAdding: .day, value: myTicketById.ticket_id!.days, to: myTicketById.date)
@@ -54,6 +54,7 @@ class MyTicketsViewController: UITableViewController {
             if myTicketForDelete.trips.count == 0 {
                 StoragManager.deleteItem(objs: myTicketForDelete)
                 tableView.reloadData()
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "tripReloadMytickets"), object: nil)
             } else {
                 self.errorAlert()
             }
@@ -74,6 +75,7 @@ class MyTicketsViewController: UITableViewController {
         guard let ticket = segue.source as? TicketViewController else { return }
         ticket.addNewTicket()
         tableView.reloadData()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "tripReloadMytickets"), object: nil)
     }
 
 }

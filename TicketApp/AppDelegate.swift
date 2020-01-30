@@ -15,12 +15,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        let version: UInt64 = 1
+        let version: UInt64 = 2
         var config = Realm.Configuration(
             schemaVersion: version,
             migrationBlock: { migration, oldSchemaVersion in
                 if (oldSchemaVersion < version) {
-                    self.firstStart()
+//                    self.firstStart()
                 }
             }
         )

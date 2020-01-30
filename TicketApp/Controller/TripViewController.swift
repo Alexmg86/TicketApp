@@ -45,6 +45,8 @@ class TripViewController: UIViewController, UITableViewDelegate, UITableViewData
         payments = realm.objects(Payments.self)
         myTickets = realm.objects(MyTickets.self)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.tripReloadMytickets), name: NSNotification.Name(rawValue: "tripReloadMytickets"), object: nil)
+        
         self.notificationLabel.isHidden = trips.isEmpty ? false : true
         self.tableView.tableFooterView = UIView()
     }
@@ -223,9 +225,17 @@ class TripViewController: UIViewController, UITableViewDelegate, UITableViewData
             let newTrip = Trips(id: nextId, type: type, date: Date(), ticket_id: ticket, transport_id: transport_id!, price: price)
             StoragManager.addItem(objs: newTrip)
             tableView.reloadData()
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadMytickets"), object: nil)
+            if selectedMyTicket != 0 {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadMytickets"), object: nil)
+            } else {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadBalance"), object: nil)
+            }
             self.reset()
         }
+    }
+    
+    @objc private func tripReloadMytickets() {
+        self.myTicketCollectionView.reloadData()
     }
 
 }

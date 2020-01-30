@@ -23,6 +23,9 @@ class BalanceViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.getBalance()
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadBalance), name: NSNotification.Name(rawValue: "reloadBalance"), object: nil)
+        
         self.tableView.tableFooterView = UIView()
     }
     
@@ -89,6 +92,10 @@ class BalanceViewController: UIViewController, UITableViewDelegate, UITableViewD
         let spent: Int = realm.objects(Trips.self).sum(ofProperty: "price")
         let payments: Int = realm.objects(Payments.self).sum(ofProperty: "value")
         balanceLabel.text = "\(payments - spent) ₽"
+    }
+    
+    @objc private func reloadBalance(notification: NSNotification){
+        self.getBalance()
     }
 
 }
